@@ -17,7 +17,7 @@ const io = socketio(server);
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-const botName = 'ChatCord Bot';
+const botName = '오똑이봇';
 
 // Run when client connects
 io.on('connection', socket => {
@@ -27,14 +27,14 @@ io.on('connection', socket => {
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+    socket.emit('message', formatMessage(botName, '어서오세요.회원님!'));
 
     // Broadcast when a user connects
     socket.broadcast
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `${user.username} has joined the chat`)
+        formatMessage(botName, `${user.username} 님이 들어오셨습니다.`)
       );
 
     // Send users and room info
@@ -58,7 +58,7 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        formatMessage(botName, `${user.username} has left the chat`)
+        formatMessage(botName, `${user.username} 님이 나가셨습니다.`)
       );
 
       // Send users and room info
